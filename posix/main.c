@@ -42,12 +42,12 @@ void timer_ISR(int signum) {
 int main(int argc, char *argv[]) {
     
     // Variables for timer setup
-    struct sigaction sa;
-    struct sigevent sev;
-    struct itimerspec its;
+    struct sigaction sa; // https://www.man7.org/linux/man-pages/man2/sigaction.2.html
+    struct sigevent sev; // https://www.man7.org/linux/man-pages/man7/sigevent.7.html
+    struct itimerspec its; // https://www.man7.org/linux/man-pages/man3/itimerspec.3type.html
 
     // setting the actual timer
-    timer_t timerid;
+    timer_t timerid; // https://www.man7.org/linux/man-pages/man3/timer_t.3type.html
 
     // we set the interval of the timer to be 1 second
     int interval_sec = 1;
@@ -73,6 +73,7 @@ int main(int argc, char *argv[]) {
     // we link the signal SIGRTMIN to the function timer_handler
     // by calling the function sigaction
     // it takes as the parameter the structure sa, which we just filled in
+    // https://www.man7.org/linux/man-pages/man2/sigaction.2.html
     if (sigaction(SIGRTMIN, &sa, NULL) == -1) {
         perror("sigaction");
         exit(EXIT_FAILURE);
@@ -91,6 +92,7 @@ int main(int argc, char *argv[]) {
     // Create the timer
     // we create the timer with the function timer_create
     // it takes as the first parameter the type of the clock
+    // https://www.man7.org/linux/man-pages/man2/timer_create.2.html
     if (timer_create(CLOCK_REALTIME, &sev, &timerid) == -1) {
         perror("timer_create");
         exit(EXIT_FAILURE);
@@ -109,6 +111,7 @@ int main(int argc, char *argv[]) {
 
 
     // and here we set the timer to start
+    // https://www.man7.org/linux/man-pages/man2/timer_settime.2.html
     if (timer_settime(timerid, 0, &its, NULL) == -1) {
         perror("timer_settime");
         exit(EXIT_FAILURE);
