@@ -361,3 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+Windows/WindowsInterrupt/WindowsInterrupt.vcxproj
+Windows/WindowsInterrupt/WindowsInterrupt.vcxproj.filters
+posix/main
